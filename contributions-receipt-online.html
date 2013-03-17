@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title></title>
+</head>
+<body>
+  <!-- BEGIN  HEADER -->
+  <!-- CHANGE padding-top:VALUE in the DIVs below to move logo and DN address up or down -->
+  <!-- Measurement is from the top of the page (or printer margin) in pixels -->
+  <div style="position:relative; font-family: Arial, Verdana, sans-serif; font-size: 12px; padding-top:75px">
+    <!-- Logo block -->
+	<div style="width:75%; float:left; display:inline-block; text-align:right;">
+      <img src="http://www.democracynow.org/resources/thumbnails/14/614/dn-logo-transparent.png" alt="[Democracy Now! logo]" />
+    </div>
+    <!-- DN Address block -->
+    <div style="width:25%; padding-top:33px; display:inline-block; text-align:left;">
+      207 West 25th Street<br />
+      11th Floor<br />
+      New York, NY 10001<br />
+      Phone: 212-431-9090<br />
+      Fax: 212-431-8858<br />
+    </div>
+    <br clear="all">
+  </div>
+  <!-- END HEADER -->
+
+  <!-- BEGIN CONTENT -->
+  <!-- CHANGE top:2in here to donor address block up and down -->
+  <!-- Measurement is from the top of the page in inches -->
+  <div style="width:100%; position:absolute; top:1.8in; font-family: Arial, Verdana, sans-serif; font-size: 14px;">
+    <p>{$smarty.now|date_format:"%B %e, %Y"}<br /><br /></p>
+	<p>
+      {if '{contact.addressee}'} {ts}{contact.addressee}{/ts} {else}
+      {ts}{contact.display_name}{/ts}{/if}<br />
+      {if $organization_name} {$organization_name}<br /> {/if}
+      {contact.street_address}<br />
+      {if '{contact.supplemental_address_1}'} {contact.supplemental_address_1}<br /> {/if}
+      {if '{contact.supplemental_address_2}'} {contact.supplemental_address_2}<br /> {/if}
+      {contact.city}, {contact.state_province} {contact.postal_code}<br />
+      {contact.country}
+    </p>
+    <br /><br /><br/><br/><br/>
+    {if $receipt_text}
+    <p>{$receipt_text|htmlize}</p>
+    {/if}
+
+    {if $is_pay_later}
+    <p>{$pay_later_receipt}</p> {* FIXME: this might be text rather than HTML *}
+    {else}
+    <p>
+      {if '{contact.postal_greeting}'} {ts}{contact.postal_greeting},{/ts} {else}
+      {ts}Dear {contact.first_name},{/ts}{/if}
+    </p>
+    <p>
+      {ts}Thank you so much for your generous contribution of {$amount|crmMoney:$currency} made on <br /> {$receive_date|truncate:10:''|crmDate} to support the work of Democracy Now!.{/ts}
+    </p>
+	<p>
+	{ts}Democracy Now!'s daily independent global news hour airs on television and radio stations worldwide, and is available online 24 hours a day at democracynow.org.  We accept no advertising income, corporate underwriting or government funding -- instead we rely on supporters like you to maintain our editorial independence.{/ts}	
+	</p>	
+    <p>
+      {ts}No goods or services were provided in consideration of your donation. Your donation is tax-deductible as allowable by law.{/ts}
+    </p>
+    <p>
+      {ts}If you have any questions, feel free to contact me. Please continue to tune-in, spread the word, and support Democracy Now!.{/ts}
+    </p>
+    <p>{ts}Sincerely,{/ts}</p>
+	<img src="https://www.democracynow.org/resources/thumbnails/71/671/jcsig.jpg" style="margin-bottom: 20px;">
+    <p>  
+	  {ts}Julie Crosby<br />
+      General Manager <br />
+      212-431-9090{/ts}
+    </p>
+    {/if}
+  </div>
+  <!-- END CONTENT -->
+
+  <!-- BEGIN FOOTER -->
+  <!-- CHANGE top:9.4in here to move footer up and down -->
+  <!-- Measurement is from the top of the page in inches -->
+  <div style="width:100%; position:absolute; top:9.4in; font-family: Arial, Verdana, sans-serif; font-size:65%; font-style:italic; text-align:center;">
+    <p>
+      {ts}Democracy Now! Productions Inc. is a 501(c)3 nonprofit organization. <br />
+      All donations are tax-deductible as allowable by law.{/ts}
+    </p>
+  </div>
+  <!-- END FOOTER -->
+
+</body>
+</html>
