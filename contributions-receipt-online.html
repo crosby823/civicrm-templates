@@ -10,7 +10,7 @@
   <!-- Measurement is from the top of the page (or printer margin) in pixels -->
   <div style="position:relative; font-family: Arial, Verdana, sans-serif; font-size: 12px; padding-top:75px">
     <!-- Logo block -->
-	<div style="width:75%; float:left; display:inline-block; text-align:right;">
+  <div style="width:75%; float:left; display:inline-block; text-align:right;">
       <img src="http://www.democracynow.org/resources/thumbnails/14/614/dn-logo-transparent.png" alt="[Democracy Now! logo]" />
     </div>
     <!-- DN Address block -->
@@ -29,18 +29,25 @@
   <!-- CHANGE top:2in here to donor address block up and down -->
   <!-- Measurement is from the top of the page in inches -->
   <div style="width:100%; position:absolute; top:1.8in; font-family: Arial, Verdana, sans-serif; font-size: 14px;">
-    <p>{$smarty.now|date_format:"%B %e, %Y"}<br /><br /></p>
-	<p>
+    <p>{$smarty.now|date_format:"%B %e, %Y"}</p>
+    {if '{contact.preferred_communication_method}' eq 'Email'}
+    {else}
+    <br /><br />
+    {/if}
+    <p>
+    {if '{contact.preferred_communication_method}' eq 'Email'}
+    {else}
       {if '{contact.addressee}'} {ts}{contact.addressee}{/ts} {else}
       {ts}{contact.display_name}{/ts}{/if}<br />
       {if $organization_name} {$organization_name}<br /> {/if}
       {contact.street_address}<br />
       {if '{contact.supplemental_address_1}'} {contact.supplemental_address_1}<br /> {/if}
       {if '{contact.supplemental_address_2}'} {contact.supplemental_address_2}<br /> {/if}
-      {contact.city}, {contact.state_province} {contact.postal_code}<br />
+      {contact.city}{if '{contact.city}'}, {/if}{contact.state_province} {contact.postal_code}<br />
       {contact.country}
     </p>
     <br /><br /><br/><br/><br/>
+    {/if}
     {if $receipt_text}
     <p>{$receipt_text|htmlize}</p>
     {/if}
@@ -49,15 +56,18 @@
     <p>{$pay_later_receipt}</p> {* FIXME: this might be text rather than HTML *}
     {else}
     <p>
-      {if '{contact.postal_greeting}'} {ts}{contact.postal_greeting},{/ts} {else}
+      {if '{contact.preferred_communication_method}' eq 'Email'} Dear {contact.display_name},
+      {else}
+        {if '{contact.postal_greeting}'} {ts}{contact.postal_greeting},{/ts} {else}
       {ts}Dear {contact.first_name},{/ts}{/if}
+      {/if}
     </p>
     <p>
-      {ts}Thank you so much for your generous contribution of {$amount|crmMoney:$currency} made on <br /> {$receive_date|truncate:10:''|crmDate} to support the work of Democracy Now!.{/ts}
+      {ts}Thank you so much for your generous contribution of {$amount|crmMoney:$currency} made on {$receive_date|truncate:10:''|crmDate} to support the work of Democracy Now!.{/ts}
     </p>
-	<p>
-	{ts}Democracy Now!'s daily independent global news hour airs on television and radio stations worldwide, and is available online 24 hours a day at democracynow.org.  We accept no advertising income, corporate underwriting or government funding -- instead we rely on supporters like you to maintain our editorial independence.{/ts}	
-	</p>	
+  <p>
+  {ts}Democracy Now!'s daily independent global news hour airs on television and radio stations worldwide, and is available online 24 hours a day at democracynow.org.  We accept no advertising income, corporate underwriting or government funding -- instead we rely on supporters like you to maintain our editorial independence.{/ts}  
+  </p>  
     <p>
       {ts}No goods or services were provided in consideration of your donation. Your donation is tax-deductible as allowable by law.{/ts}
     </p>
@@ -65,9 +75,9 @@
       {ts}If you have any questions, feel free to contact me. Please continue to tune-in, spread the word, and support Democracy Now!.{/ts}
     </p>
     <p>{ts}Sincerely,{/ts}</p>
-	<img src="https://www.democracynow.org/resources/thumbnails/71/671/jcsig.jpg" style="margin-bottom: 20px;">
+  <img src="https://www.democracynow.org/resources/thumbnails/71/671/jcsig.jpg" style="margin-bottom: 20px;">
     <p>  
-	  {ts}Julie Crosby<br />
+    {ts}Julie Crosby<br />
       General Manager <br />
       212-431-9090{/ts}
     </p>
